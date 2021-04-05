@@ -14,16 +14,16 @@ S_HEIGHT = 900
 
 cube = np.zeros((6, 3, 3))
 
-
 # Constants
 # Colors
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-GREEN = (0, 255, 0)
-WHITE = (255, 255, 255)
-YELLOW = (237, 231, 43)
-ORANGE = (255, 123, 0)
 BLAC = (0, 0, 0)
+YELLOW = (237, 231, 43)
+BLUE = (0, 0, 255)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+ORANGE = (255, 123, 0)
+colors = (BLAC, YELLOW, BLUE, WHITE, GREEN, RED, ORANGE)
 
 # Initializing various icons and resizing them to a 95 x 95 image
 UP = pygame.image.load(r"Images\up_arrow.png")
@@ -54,14 +54,6 @@ screen = pygame.display.set_mode(size=(S_WIDTH, S_HEIGHT))
 screen.fill((100, 100, 100))
 
 
-# index is -1
-# 1 = yellow //0
-# 2 = blue   //1
-# 3 = white  //2
-# 4 = green  //3
-# 5 = red    //4
-# 6 = orange //5
-
 # drawing the UV index of the cube
 def drawColors():
     for zAxis in range(6):
@@ -73,19 +65,7 @@ def drawColors():
                 else:
                     rectPoints = (600 + (300 + xAxis * 100) + 3, 300 *
                                   ((zAxis-4)*2) + 100 * yAxis + 3, 95, 95)
-
-                if cube[zAxis][yAxis][xAxis] == 1:
-                    color = YELLOW
-                elif cube[zAxis][yAxis][xAxis] == 2:
-                    color = BLUE
-                elif cube[zAxis][yAxis][xAxis] == 3:
-                    color = WHITE
-                elif cube[zAxis][yAxis][xAxis] == 4:
-                    color = GREEN
-                elif cube[zAxis][yAxis][xAxis] == 5:
-                    color = RED
-                elif cube[zAxis][yAxis][xAxis] == 6:
-                    color = ORANGE
+                color = colors[cube[zAxis][yAxis][xAxis]]
                 pygame.draw.rect(screen, color,
                                  rectPoints)
 
@@ -94,18 +74,7 @@ def drawFace(this_face):
     for yAxis in range(3):
         for xAxis in range(3):
             rectPoints = (100+100*xAxis + 3, 300 + 100*yAxis+3, 95, 95)
-            if cube[this_face][yAxis][xAxis] == 1:
-                color = YELLOW
-            elif cube[this_face][yAxis][xAxis] == 2:
-                color = BLUE
-            elif cube[this_face][yAxis][xAxis] == 3:
-                color = WHITE
-            elif cube[this_face][yAxis][xAxis] == 4:
-                color = GREEN
-            elif cube[this_face][yAxis][xAxis] == 5:
-                color = RED
-            elif cube[this_face][yAxis][xAxis] == 6:
-                color = ORANGE
+            color = colors[cube[zAxis][yAxis][xAxis]]
             pygame.draw.rect(screen, color,
                              rectPoints)
 
@@ -134,17 +103,17 @@ def doMove(xPos, yPos, this_face):
     top, right, bot, left = Moves.adjacentFaces(this_face)
 
     # checking if the center of any face in the UV index is clicked and showing that face accordingly
-    if(xPos > 700 and xPos < 800 and yPos > 400 and yPos < 500):
+    if 700 < xPos < 800 and 400 < yPos < 500:
         face = 0
-    if (xPos > 1000 and xPos < 1100 and yPos > 400 and yPos < 500):
+    if 1000 < xPos < 1100 and 400 < yPos < 500:
         face = 1
-    if(xPos > 1300 and xPos < 1400 and yPos > 400 and yPos < 500):
+    if 1300 < xPos < 1400 and 400 < yPos < 500:
         face = 2
-    if(xPos > 1600 and xPos < 1700 and yPos > 400 and yPos < 500):
+    if 1600 < xPos < 1700 and 400 < yPos < 500:
         face = 3
-    if (xPos > 1000 and xPos < 1100 and yPos > 100 and yPos < 200):
+    if  1000 < xPos < 1100 and 100 < yPos < 200:
         face = 4
-    if (xPos > 1000 and xPos < 1100 and yPos > 700 and yPos < 800):
+    if 1000 < xPos < 1100 and 700 < yPos < 800:
         face = 5
 
     # front turn
