@@ -12,7 +12,7 @@ pygame.display.init
 S_WIDTH = 1800
 S_HEIGHT = 900
 
-cube = np.zeros((6, 3, 3))
+cube = np.zeros((6, 3, 3)).astype(int)
 
 # Constants
 # Colors
@@ -24,7 +24,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 ORANGE = (255, 123, 0)
 colors = (BLAC, YELLOW, BLUE, WHITE, GREEN, RED, ORANGE)
-
+print(colors)
 # Initializing various icons and resizing them to a 95 x 95 image
 UP = pygame.image.load(r"Images\up_arrow.png")
 UP = pygame.transform.scale(UP, (95, 95))
@@ -66,6 +66,7 @@ def drawColors():
                     rectPoints = (600 + (300 + xAxis * 100) + 3, 300 *
                                   ((zAxis-4)*2) + 100 * yAxis + 3, 95, 95)
                 color = colors[cube[zAxis][yAxis][xAxis]]
+                print(color)
                 pygame.draw.rect(screen, color,
                                  rectPoints)
 
@@ -74,7 +75,7 @@ def drawFace(this_face):
     for yAxis in range(3):
         for xAxis in range(3):
             rectPoints = (100+100*xAxis + 3, 300 + 100*yAxis+3, 95, 95)
-            color = colors[cube[zAxis][yAxis][xAxis]]
+            color = colors[cube[this_face][yAxis][xAxis]]
             pygame.draw.rect(screen, color,
                              rectPoints)
 
@@ -111,49 +112,49 @@ def doMove(xPos, yPos, this_face):
         face = 2
     if 1600 < xPos < 1700 and 400 < yPos < 500:
         face = 3
-    if  1000 < xPos < 1100 and 100 < yPos < 200:
+    if 1000 < xPos < 1100 and 100 < yPos < 200:
         face = 4
     if 1000 < xPos < 1100 and 700 < yPos < 800:
         face = 5
 
     # front turn
-    if (xPos > 400 and xPos < 500 and yPos > 200 and yPos < 300):
+    if 400 < xPos < 500 and 200 < yPos < 300:
         Moves.turnFront(this_face, cube)
-    if (xPos > 0 and xPos < 100 and yPos > 200 and yPos < 300):
+    if 0 < xPos < 100 and 200 < yPos < 300:
         Moves.turnFront(this_face, cube, True)
 
     # top row
-    if (xPos > 100 and xPos < 200 and yPos > 200 and yPos < 300):
+    if 100 < xPos < 200 and 200 < yPos < 300:
         Moves.turnLeft(this_face, cube)
-    if (xPos > 300 and xPos < 400 and yPos > 200 and yPos < 300):
+    if 300 < xPos < 400 and 200 < yPos < 300:
         Moves.turnRight(this_face, cube)
 
     # bot row:
-    if (xPos > 100 and xPos < 200 and yPos > 600 and yPos < 700):
+    if 100 < xPos < 200 and 600 < yPos < 700:
         Moves.turnLeft(this_face, cube, True)
-    if (xPos > 300 and xPos < 400 and yPos > 600 and yPos < 700):
+    if 300 < xPos < 400 and 600 < yPos < 700:
         Moves.turnRight(this_face, cube, True)
 
     # right row:
-    if (xPos > 400 and xPos < 500 and yPos > 300 and yPos < 400):
+    if 400 < xPos < 500 and 300 < yPos < 400:
         Moves.turnTop(this_face, cube, True)
-    if (xPos > 400 and xPos < 500 and yPos > 500 and yPos < 600):
+    if 400 < xPos < 500 and 500 < yPos < 600:
         Moves.turnBot(this_face, cube)
 
     # left row:
-    if (xPos > 0 and xPos < 100 and yPos > 300 and yPos < 400):
+    if 0 < xPos < 100 and 300 < yPos < 400:
         Moves.turnTop(this_face, cube)
-    if (xPos > 0 and xPos < 100 and yPos > 500 and yPos < 600):
+    if 0 < xPos < 100 and 500 < yPos < 600:
         Moves.turnBot(this_face, cube, True)
 
     # turn faces:
-    if (xPos > 100 and xPos < 200 and yPos > 100 and yPos < 200):
+    if 100 < xPos < 200 and 100 < yPos < 200:
         face = top
-    if (xPos > 300 and xPos < 400 and yPos > 100 and yPos < 200):
+    if 300 < xPos < 400 and 100 < yPos < 200:
         face = bot
-    if (xPos > 100 and xPos < 200 and yPos > 700 and yPos < 800):
+    if 100 < xPos < 200 and 700 < yPos < 800:
         face = left
-    if (xPos > 300 and xPos < 400 and yPos > 700 and yPos < 800):
+    if 300 < xPos < 400 and 700 < yPos < 800:
         face = right
 
 
